@@ -1,0 +1,151 @@
+    <!DOCTYPE html>
+    <html lang="he" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>יום חמישי // האתגר הקבוצתי</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&display=swap');
+            
+            body {
+                font-family: 'Assistant', sans-serif;
+                background-color: #fdf7f2;
+                color: #4a4a4a;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+            }
+
+            .card {
+                background: white;
+                padding: 40px;
+                border-radius: 30px;
+                box-shadow: 0 15px 35px rgba(230, 210, 200, 0.4);
+                max-width: 420px;
+                width: 90%;
+                text-align: center;
+                border: 1px solid #f1ece8;
+            }
+
+            .section { display: none; animation: fadeIn 0.8s ease; }
+            .active { display: block; }
+
+            .step-label {
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: #d4a373;
+                margin-bottom: 20px;
+                display: block;
+            }
+
+            h2 { font-weight: 300; font-size: 22px; line-height: 1.5; margin-bottom: 25px; }
+            .highlight { color: #bc8a5f; font-weight: 600; }
+
+            input {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #e0e0e0;
+                padding: 12px 0;
+                font-size: 18px;
+                outline: none;
+                margin: 10px 0 25px 0;
+                text-align: center;
+                font-family: inherit;
+                transition: 0.3s;
+            }
+
+            input:focus { border-bottom: 1px solid #bc8a5f; }
+
+            button {
+                background: #4a4a4a;
+                color: #fff;
+                border: none;
+                padding: 15px 40px;
+                border-radius: 50px;
+                font-size: 15px;
+                cursor: pointer;
+                width: 100%;
+                transition: 0.3s;
+            }
+
+            button:hover { background: #bc8a5f; }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="card">
+            
+            <div class="section active" id="s1">
+                <span class="step-label">Part I // הדינמיקה</span>
+                <h2>הערב מבוסס על תלות הדדית. הנוכחות של <span class="highlight">עדי ונדב</span> היא קריטית – בלעדיהם המערכת פשוט לא תזוז.</h2>
+                <p>איך קוראים לקבוצת אנשים שפועלת יחד למען מטרה אחת?</p>
+                <input type="text" id="ans1" placeholder="הקלידי תשובה...">
+                <button onclick="check(1, ['צוות', 'קבוצה', 'יחידה'], 2)">הבא</button>
+            </div>
+
+            <div class="section" id="s2">
+                <span class="step-label">Part II // השפה</span>
+                <h2>חפצים יומיומיים יפסיקו לתפקד כרגיל. נצטרך ללמוד "שפה" שמוסתרת בפרטים הכי קטנים.</h2>
+                <p>מה אנחנו מחפשים כשאנחנו מנסים לפתור משהו מסתורי?</p>
+                <input type="text" id="ans2" placeholder="מילה אחת...">
+                <button onclick="check(2, ['רמז', 'רמזים', 'פתרון', 'סימן'], 3)">הבא</button>
+            </div>
+
+            <div class="section" id="s3">
+                <span class="step-label">Part III // העלילה</span>
+                <h2>אנחנו המנוע של הסיפור. הסיטואציה תישאר קפואה עד שלא נבצע את הפעולה הנכונה.</h2>
+                <p>כשיש בעיה סבוכה שצריך לפצח, מה אנחנו מנסים לעשות לה?</p>
+                <input type="text" id="ans3" placeholder="הקלידי פועל...">
+                <button onclick="check(3, ['לפתור', 'לפצח', 'לפתוח', 'לשחרר'], 4)">הבא</button>
+            </div>
+
+            <div class="section" id="s4">
+                <span class="step-label">The Reveal // זיהוי סופי</span>
+                <h2>ארבעה אנשים, מקום אחד, והרבה סימנים לפענח.</h2>
+                <p>לאן אני לוקח אותך היום?</p>
+                <input type="text" id="final" placeholder="שם הפעילות...">
+                <button onclick="checkFinal()">שחרור נעילה</button>
+            </div>
+
+            <div class="section" id="s5">
+                <span class="step-label">Confirmed</span>
+                <h2 style="font-weight: 600;">אסקייפ רום 🎉</h2>
+                <p>ביום חמישי בערב עם עדי ונדב.<br>תתכונני, זה הולך להיות דאבל דייט בלתי נשכח!</p>
+            </div>
+
+        </div>
+
+        <script>
+            function next(id) {
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById('s' + id).classList.add('active');
+            }
+
+            function check(id, correctArray, nextId) {
+                const val = document.getElementById('ans' + id).value.trim();
+                if (correctArray.some(c => val.includes(c))) {
+                    next(nextId);
+                } else {
+                    alert("ניחוש יפה, אבל לא מה שחיפשתי. נסי שוב!");
+                }
+            }
+
+            function checkFinal() {
+                const v = document.getElementById('final').value;
+                if (v.includes('אסקייפ') || v.includes('בריחה') || v.toLowerCase().includes('escape')) {
+                    next(5);
+                } else {
+                    alert("עדיין לא... תחשבי על כל הרמזים שאספת!");
+                }
+            }
+        </script>
+    </body>
+    </html>
